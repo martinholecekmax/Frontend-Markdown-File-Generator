@@ -1,0 +1,500 @@
+model: [
+    {
+      id: 1,
+      field: "path",
+      type: "string"
+    },
+    {
+      id: 2,
+      field: "productType",
+      type: "select",
+      values: ["calculator", "simple", "group"]
+    },
+    {
+      id: 3,
+      field: "title",
+      type: "string"
+    },
+    {
+      id: 4,
+      field: "productCategory",
+      type: "string"
+    },
+    {
+      id: 5,
+      field: "sku",
+      type: "string"
+    },
+    {
+      id: 6,
+      field: "image",
+      type: "string"
+    },
+    {
+      id: 7,
+      field: "minQty",
+      type: "number"
+    },
+    {
+      id: 8,
+      field: "unit",
+      type: "string"
+    },
+    {
+      id: 9,
+      field: "price",
+      type: "number"
+    },
+    {
+      id: 10,
+      field: "visible",
+      type: "bool"
+    },
+    {
+      id: 11,
+      field: "priceTiers",
+      type: "array",
+      elementType: "object",
+      values: [
+        {
+          key: "amount",
+          type: "string"
+        },
+        {
+          key: "price",
+          type: "string"
+        }
+      ]
+    },
+    {
+      id: 12,
+      field: "moreInformation",
+      type: "array",
+      elementType: "object",
+      values: [
+        {
+          key: "name",
+          type: "string"
+        },
+        {
+          key: "value",
+          type: "string"
+        }
+      ]
+    },
+    {
+      id: 13,
+      field: "inStock",
+      type: "bool"
+    },
+    {
+      id: 14,
+      field: "uk",
+      type: "bool"
+    },
+    {
+      id: 15,
+      field: "relatedProducts",
+      type: "array",
+      elementType: "string"
+    },
+    {
+      id: 16,
+      field: "offer",
+      type: "bool"
+    },
+    {
+      id: 19,
+      field: "bayWidth",
+      type: "number"
+    },
+    {
+      id: 20,
+      field: "components",
+      type: "array",
+      elementType: "object",
+      values: [
+        {
+          key: "name",
+          type: "string"
+        },
+        {
+          key: "quantity",
+          type: "string"
+        }
+      ]
+    },
+    {
+      id: 21,
+      field: "downloads",
+      type: "array",
+      elementType: "object",
+      values: [
+        {
+          key: "name",
+          type: "string"
+        },
+        {
+          key: "link",
+          type: "string"
+        }
+      ]
+    },
+    {
+      id: 22,
+      field: "enableGroupImages",
+      type: "bool"
+    },
+    {
+      id: 23,
+      field: "genericOptions",
+      type: "array",
+      elementType: "string"
+    },
+    {
+      id: 24,
+      field: "groupDescription",
+      type: "string"
+    },
+    {
+      id: 25,
+      field: "groupProducts",
+      type: "array",
+      elementType: "string"
+    },
+    {
+      id: 26,
+      field: "groupTitle",
+      type: "string"
+    },
+    {
+      id: 27,
+      field: "pallet",
+      type: "bool"
+    },
+    {
+      id: 28,
+      field: "pricePerMeter",
+      type: "number"
+    },
+    {
+      id: 29,
+      field: "productDisabled",
+      type: "bool"
+    },
+    {
+      id: 30,
+      field: "searchPriority",
+      type: "number"
+    },
+    {
+      id: 31,
+      field: "shoppingDesc",
+      type: "string"
+    },
+    {
+      id: 12,
+      field: "filters",
+      type: "array",
+      elementType: "object",
+      values: [
+        {
+          key: "name",
+          type: "string"
+        },
+        {
+          key: "value",
+          type: "string"
+        }
+      ]
+    },
+    // {
+    //   id: 32,
+    //   field: "color",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    {
+      id: 33,
+      field: "productOptions",
+      type: "array",
+      elementType: "object",
+      values: [
+        {
+          key: "optionName",
+          type: "string"
+        },
+        // {
+        //   key: "optionType",
+        //   type: "select",
+        //   values: ["radio", "swatch", "switch", "select"]
+        // },
+        // {
+        //   key: "oneOff",
+        //   type: "bool"
+        // },
+        // {
+        //   key: "optionQuestion",
+        //   type: "string"
+        // },
+        // {
+        //   key: "optionSubtitle",
+        //   type: "string"
+        // },
+        // {
+        //   key: "optionName",
+        //   type: "string"
+        // },
+        // {
+        //   key: "qtyInput",
+        //   type: "bool"
+        // },
+        {
+          key: "options",
+          type: "array",
+          elementType: "object",
+          values: [
+            {
+              key: "name",
+              type: "string"
+            }
+            {
+              key: "priceModifier",
+              type: "number"
+            },
+            {
+              key: "quantityModifier",
+              type: "number"
+            },
+            {
+              key: "color",
+              type: "string"
+            },
+            {
+              key: "stockMessage",
+              type: "string"
+            },
+            {
+              key: "optionId",
+              type: "string"
+            },
+            {
+              key: "disableArray",
+              type: "array",
+              elementType: "string"
+            },
+            {
+              key: "tierPriceModifier",
+              type: "array",
+              elementType: "object",
+              values: [
+                {
+                  key: "amount",
+                  type: "string"
+                },
+                {
+                  key: "price",
+                  type: "string"
+                }
+              ]
+            },
+            {
+              key: "modifiedBy",
+              type: "array",
+              elementType: "object",
+              values: [
+                {
+                  key: "amount",
+                  type: "string"
+                },
+                {
+                  key: "name",
+                  type: "string"
+                }
+              ]
+            },
+            {
+              key: "modifyQtyBy",
+              type: "array",
+              elementType: "object",
+              values: [
+                {
+                  key: "amount",
+                  type: "string"
+                },
+                {
+                  key: "name",
+                  type: "string"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+    //////////
+    ///   Filters
+    /////////
+    // {
+    //   id: 17,
+    //   field: "material",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 32,
+    //   field: "width",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 33,
+    //   field: "weight",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 34,
+    //   field: "sizes",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 35,
+    //   field: "sizesCompatibility",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 36,
+    //   field: "railingType",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 37,
+    //   field: "productLength",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 38,
+    //   field: "postType",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 39,
+    //   field: "operation",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 40,
+    //   field: "meshType",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 41,
+    //   field: "gateType",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 42,
+    //   field: "finish",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // },
+    // {
+    //   id: 43,
+    //   field: "feature",
+    //   type: "array",
+    //   elementType: "object",
+    //   values: [
+    //     {
+    //       key: "value",
+    //       type: "string"
+    //     }
+    //   ]
+    // }
+  ],
