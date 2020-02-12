@@ -7,51 +7,61 @@ import DynamicFields from "./DynamicFields";
 import ObjectArray from "./ObjectArray";
 import WrapperBox from "./WrapperBox";
 
+import styles from "./FieldTypeSelector.module.css";
+
 class FieldTypeSelector extends Component {
   render() {
     if (this.props.type === "string") {
       return (
         <WrapperBox title={this.props.field}>
-          <TextField
-            name={this.props.field}
-            id={this.props.field}
-            value={this.props.value}
-            handleChange={this.props.handleChange}
-          />
+          <div className={styles.content}>
+            <TextField
+              name={this.props.field}
+              id={this.props.field}
+              value={this.props.value}
+              handleChange={this.props.handleChange}
+            />
+          </div>
         </WrapperBox>
       );
     } else if (this.props.type === "number") {
       return (
         <WrapperBox title={this.props.field}>
-          <NumberField
-            name={this.props.field}
-            id={this.props.field}
-            value={this.props.value}
-            handleChange={this.props.handleChange}
-          />
+          <div className={styles.content}>
+            <NumberField
+              name={this.props.field}
+              id={this.props.field}
+              value={this.props.value}
+              handleChange={this.props.handleChange}
+            />
+          </div>
         </WrapperBox>
       );
     } else if (this.props.type === "bool") {
       return (
         <WrapperBox title={this.props.field}>
-          <CheckBox
-            name={this.props.field}
-            id={this.props.field}
-            value={this.props.value}
-            handleCheckboxChange={this.props.handleCheckboxChange}
-          />
+          <div className={styles.content}>
+            <CheckBox
+              name={this.props.field}
+              id={this.props.field}
+              value={this.props.value}
+              handleCheckboxChange={this.props.handleCheckboxChange}
+            />
+          </div>
         </WrapperBox>
       );
     } else if (this.props.type === "select") {
       return (
         <WrapperBox title={this.props.field}>
-          <SelectBox
-            options={this.props.options}
-            name={this.props.field}
-            id={this.props.field}
-            value={this.props.value}
-            handleChange={this.props.handleChange}
-          />
+          <div className={styles.content}>
+            <SelectBox
+              options={this.props.options}
+              name={this.props.field}
+              id={this.props.field}
+              value={this.props.value}
+              handleChange={this.props.handleChange}
+            />
+          </div>
         </WrapperBox>
       );
     } else if (this.props.type === "array") {

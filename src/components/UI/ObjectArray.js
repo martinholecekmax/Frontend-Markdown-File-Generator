@@ -1,22 +1,12 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
-import styles from "./ObjectArray.module.css";
-// import ObjectArrayWrapper from "./ObjectArrayWrapper";
 import WrapperBox from "./WrapperBox";
 import FieldTypeSelector from "./FieldTypeSelector";
 
+import styles from "./ObjectArray.module.css";
+
 class ObjectArray extends Component {
-  state = {
-    showContent: true
-  };
-
-  toggleShow = () => {
-    let showContent = !this.state.showContent;
-    this.setState({ showContent });
-  };
-
   addField = () => {
     let field = this.props.element;
     let values = field.values.map(item => {
@@ -38,7 +28,6 @@ class ObjectArray extends Component {
 
     field.value.push({ object: "object", values });
     this.props.handleChange(field);
-    this.setState({ showContent: true });
   };
 
   removeField = index => {
@@ -48,7 +37,6 @@ class ObjectArray extends Component {
   };
 
   updateField = (value, objIndex, index) => {
-    // let value = e.target.value;
     let field = this.props.element;
     field.value[objIndex].values[index].value = value;
     this.props.handleChange(field);
@@ -90,22 +78,13 @@ class ObjectArray extends Component {
         };
 
         return (
-          <WrapperBox
-            title={objIndex}
-            key={objIndex}
-            padding={0}
-            buttons={remove}
-          >
-            {inputs}
+          <WrapperBox title={objIndex} key={objIndex} buttons={remove}>
+            <div className={styles.content}>{inputs}</div>
           </WrapperBox>
         );
       });
 
-      if (this.state.showContent) {
-        // return <div className={styles.content}>{elements}</div>;
-        return <div>{elements}</div>;
-      }
-      return null;
+      return <div className={styles.content}>{elements}</div>;
     }
     return null;
   }
@@ -127,33 +106,9 @@ class ObjectArray extends Component {
     };
 
     return (
-      <WrapperBox title={this.props.field} buttons={buttons} padding={0}>
+      <WrapperBox title={this.props.field} buttons={buttons}>
         {this.printValues(values)}
       </WrapperBox>
-
-      // <div>
-      //   <div className={styles.topBar}>
-      //     <div className={styles.titleWrapper} onClick={this.toggleShow}>
-      //       <div className={styles.showButton}>
-      //         <i
-      //           className={
-      //             this.state.showContent ? styles.arrowDown : styles.arrowUp
-      //           }
-      //         />
-      //       </div>
-      //       <div className={styles.title}>{this.props.field}</div>
-      //     </div>
-      //     <div className={styles.buttonsWrapper}>
-      //       <span className={`badge badge-pill badge-dark ${styles.badge}`}>
-      //         {numberValues}
-      //       </span>
-      //       <div className={styles.addButton} onClick={this.addField}>
-      //         <FontAwesomeIcon icon={faPlus} />
-      //       </div>
-      //     </div>
-      //   </div>
-      //   {this.printValues(values)}
-      // </div>
     );
   }
 }

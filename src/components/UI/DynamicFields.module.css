@@ -24,8 +24,9 @@
 
 .content {
   padding: 15px;
-  padding-bottom: 0;
+  padding-bottom: 0px;
   border: 1px solid #f3f3f3;
+  margin: -1px;
 }
 
 .arrowUp {
@@ -62,4 +63,8 @@
 
 .title {
   margin-left: 10px;
+}
+
+.inputGroup {
+  margin-bottom: 15px;
 }

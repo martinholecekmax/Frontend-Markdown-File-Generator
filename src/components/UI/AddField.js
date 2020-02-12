@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 
+import styles from "./AddField.module.css";
+
 class AddField extends Component {
   state = {
     selectedValue: false
-  }
+  };
 
   handleChange = e => {
     let id = e.target.id;
@@ -16,7 +18,7 @@ class AddField extends Component {
     } else {
       this.props.removeField(field);
     }
-    this.setState({selectedValue: checked})
+    this.setState({ selectedValue: checked });
   };
 
   render() {
@@ -41,8 +43,8 @@ class AddField extends Component {
     });
 
     return (
-      <div>
-        <div>Add Field</div>
+      <div className={styles.sideBarContainer}>
+        <div className={styles.header}>Add Field</div>
         {model}
       </div>
     );

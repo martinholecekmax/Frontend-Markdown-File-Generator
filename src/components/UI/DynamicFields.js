@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import WrapperBox from "./WrapperBox";
 
 import styles from "./DynamicFields.module.css";
 
 class DynamicFields extends Component {
-  state = {
-    showContent: true
-  };
-
   addField = () => {
     let field = this.props.element;
     field.value.push("");
@@ -33,7 +30,7 @@ class DynamicFields extends Component {
     if (values && values.length > 0) {
       let elements = values.map((value, index) => {
         return (
-          <div key={index} className="input-group mb-3">
+          <div key={index} className={`${styles.inputGroup} input-group`}>
             <input
               type="text"
               className="form-control"
@@ -52,46 +49,31 @@ class DynamicFields extends Component {
           </div>
         );
       });
-      if (this.state.showContent) {
-        return <div className={styles.content}>{elements}</div>;
-      }
-      return null;
+      return <div className={styles.content}>{elements}</div>;
     }
     return null;
   }
 
-  toggleShow = () => {
-    let showContent = !this.state.showContent;
-    this.setState({ showContent });
-  };
-
   render() {
     let values = this.props.value;
     let numberValues = values.length || 0;
-    return (
-      <div>
-        <div className={styles.topBar}>
-          <div className={styles.titleWrapper} onClick={this.toggleShow}>
-            <div className={styles.showButton}>
-              <i
-                className={
-                  this.state.showContent ? styles.arrowDown : styles.arrowUp
-                }
-              />
-            </div>
-            <div className={styles.title}>{this.props.field}</div>
-          </div>
-          <div className={styles.buttonsWrapper}>
-            <span className={`badge badge-pill badge-dark ${styles.badge}`}>
-              {numberValues}
-            </span>
-            <div className={styles.addButton} onClick={this.addField}>
-              <FontAwesomeIcon icon={faPlus} />
-            </div>
+    let buttons = () => {
+      return (
+        <div className={styles.buttonsWrapper}>
+          <span className={`badge badge-pill badge-dark ${styles.badge}`}>
+            {numberValues}
+          </span>
+          <div className={styles.addButton} onClick={this.addField}>
+            <FontAwesomeIcon icon={faPlus} />
           </div>
         </div>
+      );
+    };
+
+    return (
+      <WrapperBox title={this.props.field} buttons={buttons}>
         {this.printValues(values)}
-      </div>
+      </WrapperBox>
     );
   }
 }

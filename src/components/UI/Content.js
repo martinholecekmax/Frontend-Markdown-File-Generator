@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import FieldTypeSelector from "./FieldTypeSelector";
 
+import styles from "./Content.module.css";
+
 class Content extends Component {
   handleChange = e => {
     let id = e.target.id;
@@ -28,7 +30,11 @@ class Content extends Component {
     }
 
     if (this.props.content.length === 0) {
-      return <div>Please Select Fields</div>;
+      return (
+        <div className={styles.container}>
+          <div className={styles.header}>Please Select Fields</div>
+        </div>
+      );
     }
 
     let content = this.props.content.map((element, index) => {
@@ -47,7 +53,12 @@ class Content extends Component {
         />
       );
     });
-    return <div style={{ minWidth: `340px` }}>{content}</div>;
+    return (
+      <div className={styles.container}>
+        {/* <div className={styles.buttons}>Buttons</div> */}
+        <div className={styles.content}>{content}</div>
+      </div>
+    );
   }
 }
 

@@ -6,12 +6,14 @@
   padding: 5px 10px;
   cursor: pointer;
   border: 1px solid #f3f3f3;
+  margin: -1px;
 }
 
-.content {
+/* .content {
   padding: 15px;
   border: 1px solid #f3f3f3;
-}
+  margin: -1px 0;
+} */
 
 .arrowUp {
   width: 0;
@@ -51,7 +53,8 @@
 }
 
 .object {
-  border-bottom: 1px solid #f3f3f3;
+  border: 1px solid #f3f3f3;
+  margin: -1px;
 }
 
 /* test */
