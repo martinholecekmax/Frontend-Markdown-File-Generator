@@ -346,6 +346,11 @@ const productModel = [
         ]
       }
     ]
+  },
+  {
+    id: 34,
+    field: "html",
+    type: "string"
   }
 ];
 
@@ -409,6 +414,11 @@ const categoryModel = [
         elementType: "string"
       }
     ]
+  },
+  {
+    id: 8,
+    field: "html",
+    type: "string"
   }
 ];
 

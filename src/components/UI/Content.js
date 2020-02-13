@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import FieldTypeSelector from "./FieldTypeSelector";
 
 import styles from "./Content.module.css";
+import OutputArea from "./OutputArea";
 
 class Content extends Component {
   handleChange = e => {
@@ -57,6 +58,7 @@ class Content extends Component {
       <div className={styles.container}>
         {/* <div className={styles.buttons}>Buttons</div> */}
         <div className={styles.content}>{content}</div>
+        <OutputArea content={this.props.content} />
       </div>
     );
   }
