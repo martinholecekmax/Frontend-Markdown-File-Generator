@@ -6,6 +6,8 @@ import SelectBox from "./SelectBox";
 import DynamicFields from "./DynamicFields";
 import ObjectArray from "./ObjectArray";
 import WrapperBox from "./WrapperBox";
+import TextArea from "./TextArea";
+import ColorPicker from "./ColorPicker";
 
 import styles from "./FieldTypeSelector.module.css";
 
@@ -29,6 +31,32 @@ class FieldTypeSelector extends Component {
         <WrapperBox title={this.props.field}>
           <div className={styles.content}>
             <NumberField
+              name={this.props.field}
+              id={this.props.field}
+              value={this.props.value}
+              handleChange={this.props.handleChange}
+            />
+          </div>
+        </WrapperBox>
+      );
+    } else if (this.props.type === "textarea") {
+      return (
+        <WrapperBox title={this.props.field}>
+          <div className={styles.content}>
+            <TextArea
+              name={this.props.field}
+              id={this.props.field}
+              value={this.props.value}
+              handleChange={this.props.handleChange}
+            />
+          </div>
+        </WrapperBox>
+      );
+    } else if (this.props.type === "color") {
+      return (
+        <WrapperBox title={this.props.field}>
+          <div className={styles.content}>
+            <ColorPicker
               name={this.props.field}
               id={this.props.field}
               value={this.props.value}

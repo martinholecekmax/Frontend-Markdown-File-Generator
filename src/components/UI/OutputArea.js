@@ -26,8 +26,9 @@ class OutputArea extends Component {
         if (element.field === "html") {
           html = element.value;
         } else if (element.field === "filters") {
+          let filters = "";
           element.value.forEach(filter => {
-            output +=
+            filters +=
               filter.values[0].value +
               ": [{" +
               filter.values[1].key +
@@ -35,6 +36,7 @@ class OutputArea extends Component {
               filter.values[1].value +
               '"}]\n';
           });
+          output += filters;
         } else {
           output +=
             this.getSimpleField(
@@ -51,9 +53,14 @@ class OutputArea extends Component {
   }
 
   getSimpleField(type, elementType, field, value, separator = "", indent = "") {
-    if (type === "string" || type === "select" || type === "number") {
+    if (
+      type === "string" ||
+      type === "select" ||
+      type === "textarea" ||
+      type === "color"
+    ) {
       return separator + indent + field + ': "' + value + '"';
-    } else if (type === "bool") {
+    } else if (type === "number" || type === "bool") {
       return separator + indent + field + ": " + value;
     } else if (type === "array" && elementType === "string") {
       let quotedValues = value.map(item => {

@@ -11,7 +11,7 @@ const productModel = [
   {
     id: 1,
     field: "path",
-    type: "string"
+    type: "color"
   },
   {
     id: 2,
@@ -199,7 +199,7 @@ const productModel = [
   {
     id: 31,
     field: "shoppingDesc",
-    type: "string"
+    type: "textarea"
   },
   {
     id: 12,
@@ -225,7 +225,7 @@ const productModel = [
     values: [
       {
         key: "value",
-        type: "string"
+        type: "color"
       }
     ]
   },
@@ -350,7 +350,7 @@ const productModel = [
   {
     id: 34,
     field: "html",
-    type: "string"
+    type: "textarea"
   }
 ];
 
@@ -418,7 +418,7 @@ const categoryModel = [
   {
     id: 8,
     field: "html",
-    type: "string"
+    type: "textarea"
   }
 ];
 
