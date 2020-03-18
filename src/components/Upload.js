@@ -29,18 +29,16 @@ export const Upload = () => {
       {...getRootProps()}
       style={{
         display: `flex`,
-        height: `100px`,
+        height: `200px`,
+        width: `200px`,
         border: `1px dashed black`,
         alignItems: `center`,
-        justifyContent: `center`
+        justifyContent: `center`,
+        padding: `20px`
       }}
     >
       <input {...getInputProps()} />
-      {isDragActive ? (
-        <p>Drop the files here ...</p>
-      ) : (
-        <p>Drag & Drop files here or click to select files</p>
-      )}
+      {isDragActive ? <p>Drop the files here ...</p> : <p>Upload</p>}
     </div>
   );
 };

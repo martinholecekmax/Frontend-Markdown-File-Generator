@@ -9,7 +9,7 @@ export const filesQuery = gql`
       title
       category
       type
-      published
+      status
       image
       date
       path

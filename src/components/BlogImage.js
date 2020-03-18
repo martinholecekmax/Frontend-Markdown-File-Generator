@@ -2,7 +2,6 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { Upload } from "../components/Upload";
-// import RemoveImage from "../components/RemoveImage";
 import { useMutation } from "@apollo/react-hooks";
 
 export const BLOG_IMAGE = gql`
@@ -23,26 +22,23 @@ const REMOVE_IMAGE = gql`
 const RemoveImage = ({ blogId }) => {
   console.log("blogId", blogId);
   console.log("BLOG_IMAGE", BLOG_IMAGE);
-  const [removeImageMutation, { data, loading, error }] = useMutation(
-    REMOVE_IMAGE,
-    {
-      update(cache, { data: { removeImage } }) {
-        const { blog } = cache.readQuery({
-          query: BLOG_IMAGE,
-          variables: { id: blogId }
-        });
-        console.log("blog", blog);
-        if (removeImage) {
-          blog.image = "";
-        }
-        cache.writeData({
-          query: BLOG_IMAGE,
-          data: { blog }
-        });
+  const [removeImageMutation, { data, error }] = useMutation(REMOVE_IMAGE, {
+    update(cache, { data: { removeImage } }) {
+      const { blog } = cache.readQuery({
+        query: BLOG_IMAGE,
+        variables: { id: blogId }
+      });
+      console.log("blog", blog);
+      if (removeImage) {
+        blog.image = "";
       }
-      //   refetchQueries: () => [{ query: BLOG_IMAGE, variables: { id: blogId } }]
+      cache.writeData({
+        query: BLOG_IMAGE,
+        data: { blog }
+      });
     }
-  );
+    //   refetchQueries: () => [{ query: BLOG_IMAGE, variables: { id: blogId } }]
+  });
 
   console.log("data back", data);
   if (error) {
@@ -79,14 +75,17 @@ const BlogImage = ({ blogId }) => {
           src={`http://localhost:4000/images/${data.blog.image}`}
           alt="blog_image"
           width="200"
+          height="200"
         />
-        <RemoveImage blogId={blogId} />
+        <div>
+          <RemoveImage blogId={blogId} />
+        </div>
       </div>
     ) : (
       <Upload />
     );
 
-  return <div>{image}</div>;
+  return <div style={{ display: `flex` }}>{image}</div>;
 };
 
 export default BlogImage;
