@@ -11,7 +11,7 @@ const productModel = [
   {
     id: 1,
     field: "path",
-    type: "color"
+    type: "string"
   },
   {
     id: 2,
@@ -37,7 +37,8 @@ const productModel = [
   {
     id: 6,
     field: "image",
-    type: "string"
+    type: "image",
+    defaultValue: "./images/product_image.jpg"
   },
   {
     id: 7,
@@ -47,12 +48,13 @@ const productModel = [
   {
     id: 8,
     field: "unit",
-    type: "string"
+    type: "select",
+    values: ["ea", "bay"]
   },
   {
     id: 9,
     field: "price",
-    type: "number"
+    type: "price"
   },
   {
     id: 10,
@@ -67,11 +69,11 @@ const productModel = [
     values: [
       {
         key: "amount",
-        type: "string"
+        type: "number"
       },
       {
         key: "price",
-        type: "string"
+        type: "price"
       }
     ]
   },
@@ -113,12 +115,12 @@ const productModel = [
     type: "bool"
   },
   {
-    id: 19,
+    id: 17,
     field: "bayWidth",
     type: "number"
   },
   {
-    id: 20,
+    id: 18,
     field: "components",
     type: "array",
     elementType: "object",
@@ -129,12 +131,12 @@ const productModel = [
       },
       {
         key: "quantity",
-        type: "string"
+        type: "number"
       }
     ]
   },
   {
-    id: 21,
+    id: 19,
     field: "downloads",
     type: "array",
     elementType: "object",
@@ -150,59 +152,59 @@ const productModel = [
     ]
   },
   {
-    id: 22,
+    id: 20,
     field: "enableGroupImages",
     type: "bool"
   },
   {
-    id: 23,
+    id: 21,
     field: "genericOptions",
     type: "array",
     elementType: "string"
   },
   {
-    id: 24,
+    id: 22,
     field: "groupDescription",
     type: "string"
   },
   {
-    id: 25,
+    id: 23,
     field: "groupProducts",
     type: "array",
     elementType: "string"
   },
   {
-    id: 26,
+    id: 24,
     field: "groupTitle",
     type: "string"
   },
   {
-    id: 27,
+    id: 25,
     field: "pallet",
     type: "bool"
   },
   {
-    id: 28,
+    id: 26,
     field: "pricePerMeter",
-    type: "number"
+    type: "price"
   },
   {
-    id: 29,
+    id: 27,
     field: "productDisabled",
     type: "bool"
   },
   {
-    id: 30,
+    id: 28,
     field: "searchPriority",
     type: "number"
   },
   {
-    id: 31,
+    id: 29,
     field: "shoppingDesc",
     type: "textarea"
   },
   {
-    id: 12,
+    id: 30,
     field: "filters",
     type: "array",
     elementType: "object",
@@ -218,19 +220,7 @@ const productModel = [
     ]
   },
   {
-    id: 32,
-    field: "color",
-    type: "array",
-    elementType: "object",
-    values: [
-      {
-        key: "value",
-        type: "color"
-      }
-    ]
-  },
-  {
-    id: 33,
+    id: 31,
     field: "productOptions",
     type: "array",
     elementType: "object",
@@ -275,7 +265,7 @@ const productModel = [
           },
           {
             key: "priceModifier",
-            type: "number"
+            type: "price"
           },
           {
             key: "quantityModifier",
@@ -283,7 +273,7 @@ const productModel = [
           },
           {
             key: "color",
-            type: "string"
+            type: "color"
           },
           {
             key: "stockMessage",
@@ -305,11 +295,11 @@ const productModel = [
             values: [
               {
                 key: "amount",
-                type: "string"
+                type: "number"
               },
               {
                 key: "price",
-                type: "string"
+                type: "price"
               }
             ]
           },
@@ -320,7 +310,7 @@ const productModel = [
             values: [
               {
                 key: "amount",
-                type: "string"
+                type: "number"
               },
               {
                 key: "name",
@@ -335,7 +325,7 @@ const productModel = [
             values: [
               {
                 key: "amount",
-                type: "string"
+                type: "number"
               },
               {
                 key: "name",
@@ -348,7 +338,7 @@ const productModel = [
     ]
   },
   {
-    id: 34,
+    id: 32,
     field: "html",
     type: "textarea"
   }
@@ -368,7 +358,8 @@ const categoryModel = [
   {
     id: 3,
     field: "image",
-    type: "string"
+    type: "image",
+    defaultValue: "./images/category.jpg"
   },
   {
     id: 3,

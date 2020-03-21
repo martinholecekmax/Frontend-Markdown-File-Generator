@@ -46,6 +46,7 @@ class Content extends Component {
           elementType={element.elementType}
           field={element.field}
           value={element.value}
+          defaultValue={element.defaultValue}
           handleChange={this.handleChange}
           options={element.values}
           handleCheckboxChange={this.handleCheckboxChange}

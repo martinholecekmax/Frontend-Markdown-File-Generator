@@ -60,7 +60,12 @@ class OutputArea extends Component {
       type === "color"
     ) {
       return separator + indent + field + ': "' + value + '"';
-    } else if (type === "number" || type === "bool") {
+    } else if (
+      type === "number" ||
+      type === "bool" ||
+      type === "image" ||
+      type === "price"
+    ) {
       return separator + indent + field + ": " + value;
     } else if (type === "array" && elementType === "string") {
       let quotedValues = value.map(item => {

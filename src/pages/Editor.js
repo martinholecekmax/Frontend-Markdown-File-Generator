@@ -23,6 +23,7 @@ class Editor extends Component {
       field: field.field,
       type: field.type,
       values: field.values,
+      defaultValue: field.defaultValue,
       elementType: field.elementType,
       value
     });

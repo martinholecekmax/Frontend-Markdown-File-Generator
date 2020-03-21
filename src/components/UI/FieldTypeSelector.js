@@ -10,10 +10,13 @@ import TextArea from "./TextArea";
 import ColorPicker from "./ColorPicker";
 
 import styles from "./FieldTypeSelector.module.css";
+import PriceField from "./PriceField";
 
 class FieldTypeSelector extends Component {
   render() {
-    if (this.props.type === "string") {
+    console.log("default", this.props.defaultValue);
+
+    if (this.props.type === "string" || this.props.type === "image") {
       return (
         <WrapperBox title={this.props.field}>
           <div className={styles.content}>
@@ -21,6 +24,7 @@ class FieldTypeSelector extends Component {
               name={this.props.field}
               id={this.props.field}
               value={this.props.value}
+              defaultValue={this.props.defaultValue}
               handleChange={this.props.handleChange}
             />
           </div>
@@ -31,6 +35,19 @@ class FieldTypeSelector extends Component {
         <WrapperBox title={this.props.field}>
           <div className={styles.content}>
             <NumberField
+              name={this.props.field}
+              id={this.props.field}
+              value={this.props.value}
+              handleChange={this.props.handleChange}
+            />
+          </div>
+        </WrapperBox>
+      );
+    } else if (this.props.type === "price") {
+      return (
+        <WrapperBox title={this.props.field}>
+          <div className={styles.content}>
+            <PriceField
               name={this.props.field}
               id={this.props.field}
               value={this.props.value}
