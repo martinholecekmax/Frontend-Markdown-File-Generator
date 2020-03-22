@@ -1,57 +1,48 @@
 import React, { Component } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 import BlogImage from "../../components/BlogImage";
-import InputField from "../../components/InputField";
-import ReactDatePicker from "react-datepicker";
+import InputField from "../../components/Blog/UI/inputField/InputField";
+import { POST_BY_ID } from "../../queries";
 
-export const BLOG_POST_BY_ID = gql`
-  query Blog($id: ID!) {
-    blog(id: $id) {
-      id
-      title
-      category
-      type
-      status
-      image
-      date
-      path
-      description
-      metaTitle
-      metaDescription
-    }
-  }
-`;
-
-function BlogPost({ blogId }) {
-  const { loading, error, data } = useQuery(BLOG_POST_BY_ID, {
-    variables: { id: blogId }
+function Post({ postId }) {
+  const { loading, error, data } = useQuery(POST_BY_ID, {
+    variables: { id: postId }
   });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
   return (
     <div>
-      <div>{data.blog.status}</div>
+      <div>{data.post.status}</div>
 
       <div>
-        <InputField value={data.blog.title} label="Title" />
-        <InputField value={data.blog.category} label="Category" />
-        <InputField value={data.blog.type} label="Type" />
-        <InputField value={data.blog.date} label="Date" />
-        <ReactDatePicker
-          selected={data.blog.date}
+        <InputField value={data.post.title} label="Title" />
+        <InputField value={data.post.category} label="Category" />
+        <InputField value={data.post.type} label="Type" />
+        {/* <InputField value={data.post.date} label="Date" /> */}
+        {/* <ReactDatePicker
+          selected={data.post.date}
           // onChange={this.handleChange}
-        />
-        <InputField value={data.blog.path} label="Path" />
-        <InputField value={data.blog.description} label="Description" />
-        <InputField value={data.blog.metaTitle} label="Meta Title" />
+        /> */}
+        <div className="form-group">
+          <label htmlFor="date">Date</label>
+          <input
+            type="date"
+            name="date"
+            className="form-control"
+            id="date"
+            defaultValue={data.post.date}
+          />
+        </div>
+        <InputField value={data.post.path} label="Path" />
+        <InputField value={data.post.description} label="Description" />
+        <InputField value={data.post.metaTitle} label="Meta Title" />
         <InputField
-          value={data.blog.metaDescription}
+          value={data.post.metaDescription}
           label="Meta Description"
         />
       </div>
-      <BlogImage blogId={blogId} />
+      <BlogImage postId={postId} />
     </div>
   );
 }
@@ -59,12 +50,12 @@ function BlogPost({ blogId }) {
 class Blog extends Component {
   state = {};
   render() {
-    if (!this.props.blogId) {
+    if (!this.props.postId) {
       return null;
     }
     return (
       <div style={{ margin: `50px auto`, maxWidth: `1000px` }}>
-        <BlogPost blogId={this.props.blogId} />
+        <Post postId={this.props.postId} />
       </div>
     );
   }

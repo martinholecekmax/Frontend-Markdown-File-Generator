@@ -4,9 +4,9 @@ import { gql } from "apollo-boost";
 import { Upload } from "../components/Upload";
 import { useMutation } from "@apollo/react-hooks";
 
-export const BLOG_IMAGE = gql`
-  query Blog($id: ID!) {
-    blog(id: $id) {
+export const POST_IMAGE = gql`
+  query Post($id: ID!) {
+    post(id: $id) {
       id
       image
     }
@@ -14,30 +14,30 @@ export const BLOG_IMAGE = gql`
 `;
 
 const REMOVE_IMAGE = gql`
-  mutation RemoveImage($blogId: ID!) {
-    removeImage(blogId: $blogId)
+  mutation RemoveImage($postId: ID!) {
+    removeImage(postId: $postId)
   }
 `;
 
-const RemoveImage = ({ blogId }) => {
-  console.log("blogId", blogId);
-  console.log("BLOG_IMAGE", BLOG_IMAGE);
+const RemoveImage = ({ postId }) => {
+  console.log("postId", postId);
+  console.log("POST_IMAGE", POST_IMAGE);
   const [removeImageMutation, { data, error }] = useMutation(REMOVE_IMAGE, {
     update(cache, { data: { removeImage } }) {
-      const { blog } = cache.readQuery({
-        query: BLOG_IMAGE,
-        variables: { id: blogId }
+      const { post } = cache.readQuery({
+        query: POST_IMAGE,
+        variables: { id: postId }
       });
-      console.log("blog", blog);
+      console.log("post", post);
       if (removeImage) {
-        blog.image = "";
+        post.image = "";
       }
       cache.writeData({
-        query: BLOG_IMAGE,
-        data: { blog }
+        query: POST_IMAGE,
+        data: { post }
       });
     }
-    //   refetchQueries: () => [{ query: BLOG_IMAGE, variables: { id: blogId } }]
+    //   refetchQueries: () => [{ query: POST_IMAGE, variables: { id: postId } }]
   });
 
   console.log("data back", data);
@@ -47,10 +47,11 @@ const RemoveImage = ({ blogId }) => {
   }
   return (
     <button
+      className="btn btn-danger my-3"
       onClick={e => {
         e.preventDefault();
         removeImageMutation({
-          variables: { blogId }
+          variables: { postId }
         });
       }}
     >
@@ -59,9 +60,9 @@ const RemoveImage = ({ blogId }) => {
   );
 };
 
-const BlogImage = ({ blogId }) => {
-  const { loading, error, data } = useQuery(BLOG_IMAGE, {
-    variables: { id: blogId }
+const BlogImage = ({ postId }) => {
+  const { loading, error, data } = useQuery(POST_IMAGE, {
+    variables: { id: postId }
   });
 
   if (loading) return <p>Loading...</p>;
@@ -69,16 +70,16 @@ const BlogImage = ({ blogId }) => {
   console.log("image data", data);
 
   const image =
-    data.blog && data.blog.image ? (
+    data.post && data.post.image ? (
       <div>
         <img
-          src={`http://localhost:4000/images/${data.blog.image}`}
-          alt="blog_image"
+          src={`http://localhost:4000/images/${data.post.image}`}
+          alt="post_image"
           width="200"
           height="200"
         />
         <div>
-          <RemoveImage blogId={blogId} />
+          <RemoveImage postId={postId} />
         </div>
       </div>
     ) : (

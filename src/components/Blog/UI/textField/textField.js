@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class InputField extends Component {
+class TextField extends Component {
   state = { value: "" };
   componentDidMount() {
     if (this.props.value) {
@@ -19,18 +19,21 @@ class InputField extends Component {
     this.setState({ value });
   };
   render() {
+    let defaultValue = this.props.defaultValue || "";
     return (
       <div className="form-group">
         <label>{this.props.label}</label>
         <input
           className="form-control"
           type="text"
-          value={this.state.value}
-          onChange={this.handleChange}
+          ref={this.props.fieldRef}
+          defaultValue={defaultValue}
+          //   value={this.state.value}
+          //   onChange={this.handleChange}
         />
       </div>
     );
   }
 }
 
-export default InputField;
+export default TextField;

@@ -1,32 +1,15 @@
 import React from "react";
-import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo";
-
-export const BLOG_POSTS = gql`
-  query Posts {
-    blogs {
-      id
-      title
-      category
-      type
-      status
-      image
-      date
-      path
-      description
-      metaTitle
-      metaDescription
-    }
-  }
-`;
+import { BLOG_POSTS } from "../../queries";
+import RemoveButton from "../../components/Blog/removeButton/removeButton";
 
 const Posts = () => {
   const { loading, error, data } = useQuery(BLOG_POSTS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  const blogPosts = data.blogs.map((post, index) => {
+  const posts = data.allPosts.map((post, index) => {
     return (
-      <tr>
+      <tr key={index}>
         <td>{post.id}</td>
         <td>{post.title}</td>
         <td>{post.category}</td>
@@ -34,7 +17,13 @@ const Posts = () => {
         <td>{post.status}</td>
         <td>
           <button className="btn btn-success mr-2">Edit</button>
-          <button className="btn btn-danger">Remove</button>
+          <RemoveButton postId={post.id} />
+        </td>
+        <td>
+          <img
+            src={`http://localhost:4000/images/${post.image}`}
+            alt={`${post.image}`}
+          />
         </td>
       </tr>
     );
@@ -44,14 +33,16 @@ const Posts = () => {
       <button className="btn btn-primary my-4">Create New</button>
       <table style={{ width: `100%` }}>
         <thead>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Category</th>
-          <th>Created At</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Created At</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
         </thead>
-        <tbody>{blogPosts}</tbody>
+        <tbody>{posts}</tbody>
       </table>
     </div>
   );
