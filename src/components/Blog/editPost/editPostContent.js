@@ -16,6 +16,7 @@ class EditPostContent extends Component {
     this.descriptionRef = React.createRef();
     this.metaTitleRef = React.createRef();
     this.metaDescriptionRef = React.createRef();
+    this.htmlRef = React.createRef();
   }
 
   state = {};
@@ -42,7 +43,8 @@ class EditPostContent extends Component {
         category: this.categoryRef.current.value,
         description: this.descriptionRef.current.value,
         metaTitle: this.metaTitleRef.current.value,
-        metaDescription: this.metaDescriptionRef.current.value
+        metaDescription: this.metaDescriptionRef.current.value,
+        html: this.htmlRef.current.value
       },
       refetchQueries: () => [{ query: BLOG_POSTS }]
     }).catch(error => {
@@ -57,14 +59,25 @@ class EditPostContent extends Component {
     const post = this.props.post;
     return (
       <Mutation mutation={UPDATE_POST}>
-        {(editPost, { loading, error }) => {
+        {(postMutation, { loading, error }) => {
           return (
             <form
               className="form"
-              onSubmit={event => this.handleSubmit(event, editPost)}
+              onSubmit={event => this.handleSubmit(event, postMutation)}
               encType={"multipart/form-data"}
             >
-              <StatusList setStatus={this.setStatus} selected={post.status} />
+              <div style={{ display: `flex`, justifyContent: `space-between` }}>
+                <h1>Edit Post</h1>
+                <div style={{ display: `flex`, alignItems: `center` }}>
+                  <StatusList
+                    setStatus={this.setStatus}
+                    selected={post.status}
+                  />
+                  <button type="submit" className="btn btn-success ml-5">
+                    Save
+                  </button>
+                </div>
+              </div>
               <TextField
                 fieldRef={this.titleRef}
                 defaultValue={post.title}
@@ -97,12 +110,8 @@ class EditPostContent extends Component {
                 defaultValue={post.metaDescription}
                 label={"Meta Description"}
               />
+              <TextField fieldRef={this.htmlRef} label={"Content"} />
 
-              <div>
-                <button type="submit" className="btn btn-success my-3">
-                  Upload
-                </button>
-              </div>
               {error ? <p>Please, try again!</p> : null}
               {loading && <p>Loading.....</p>}
             </form>

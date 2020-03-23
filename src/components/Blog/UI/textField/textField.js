@@ -14,10 +14,23 @@ class TextField extends Component {
     }
   }
 
+  validateURI(str) {
+    return str
+      .toLowerCase()
+      .replace(/ /g, "-")
+      .replace(/--/g, "-")
+      .replace(/[^\w-]+/g, "");
+  }
+
   handleChange = e => {
-    const value = e.target.value;
-    this.setState({ value });
+    let value = e.target.value;
+    console.log("this.props.uri", this.props.uri);
+    if (this.props.uri) {
+      value = this.validateURI(value);
+    }
+    this.props.fieldRef.current.value = value;
   };
+
   render() {
     let defaultValue = this.props.defaultValue || "";
     return (
@@ -28,8 +41,7 @@ class TextField extends Component {
           type="text"
           ref={this.props.fieldRef}
           defaultValue={defaultValue}
-          //   value={this.state.value}
-          //   onChange={this.handleChange}
+          onChange={this.handleChange}
         />
       </div>
     );

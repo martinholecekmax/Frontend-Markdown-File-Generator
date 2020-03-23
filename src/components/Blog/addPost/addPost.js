@@ -16,6 +16,7 @@ class AddPost extends Component {
     this.descriptionRef = React.createRef();
     this.metaTitleRef = React.createRef();
     this.metaDescriptionRef = React.createRef();
+    this.htmlRef = React.createRef();
   }
   state = { file: null, filename: null, status: null };
 
@@ -40,7 +41,8 @@ class AddPost extends Component {
         category: this.categoryRef.current.value,
         description: this.descriptionRef.current.value,
         metaTitle: this.metaTitleRef.current.value,
-        metaDescription: this.metaDescriptionRef.current.value
+        metaDescription: this.metaDescriptionRef.current.value,
+        html: this.htmlRef.current.value
       },
       refetchQueries: () => [{ query: BLOG_POSTS }]
     }).catch(error => {
@@ -48,9 +50,13 @@ class AddPost extends Component {
     });
   };
 
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   render() {
     return (
-      <div className="container mt-5">
+      <div className="container mt-5 p-5">
         <Mutation mutation={ADD_NEW_POST}>
           {(addPost, { loading }) => {
             return (
@@ -63,9 +69,9 @@ class AddPost extends Component {
                   style={{ display: `flex`, justifyContent: `space-between` }}
                 >
                   <h1>Add Post</h1>
-                  <div>
+                  <div style={{ display: `flex`, alignItems: `center` }}>
                     <StatusList setStatus={this.setStatus} />
-                    <button type="submit" className="btn btn-success my-3">
+                    <button type="submit" className="btn btn-success ml-5">
                       Save
                     </button>
                   </div>
@@ -84,6 +90,7 @@ class AddPost extends Component {
                   fieldRef={this.metaDescriptionRef}
                   label={"Meta Description"}
                 />
+                <TextField fieldRef={this.htmlRef} label={"Content"} />
                 {this.state.status}
 
                 {loading && <p>Loading.....</p>}

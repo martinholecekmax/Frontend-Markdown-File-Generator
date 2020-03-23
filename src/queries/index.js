@@ -14,6 +14,7 @@ export const BLOG_POSTS = gql`
       description
       metaTitle
       metaDescription
+      html
     }
   }
 `;
@@ -32,37 +33,38 @@ export const POST_BY_ID = gql`
       description
       metaTitle
       metaDescription
+      html
     }
   }
 `;
 
 export const ADD_NEW_POST = gql`
   mutation AddNewPost(
-    $title: String!
     $file: Upload
-    $status: Status # $type: String! # $date: String! # $path: String! # $image: String # $category: String! # $description: String! #  $metaTitle: String # $metaDescription: String
+    $title: String
+    $status: Status
+    $type: String
+    $date: String
+    $path: String
+    $category: String
+    $description: String
+    $metaTitle: String
+    $metaDescription: String
+    $html: String
   ) {
     createPost(
       input: {
         file: $file
         title: $title
-        type: "product"
-        date: "date"
-        path: "path"
-        category: "category"
-        description: "description"
+        type: $type
+        date: $date
+        path: $path
+        category: $category
+        description: $description
         status: $status
-        metaTitle: "metaTitle"
-        metaDescription: "metaTitle"
-        # type: $type
-        # date: $date
-        # path: $path
-        # image: "some image"
-        # category: $category
-        # description: $description
-        # status: $status
-        # metaTitle: $metaTitle
-        # metaDescription: $metaTitle
+        metaTitle: $metaTitle
+        metaDescription: $metaDescription
+        html: $html
       }
     ) {
       id
@@ -76,6 +78,7 @@ export const ADD_NEW_POST = gql`
       description
       metaTitle
       metaDescription
+      html
     }
   }
 `;
@@ -83,8 +86,8 @@ export const ADD_NEW_POST = gql`
 export const UPDATE_POST = gql`
   mutation UpdatePost(
     $id: ID!
-    $title: String
     $file: Upload
+    $title: String
     $status: Status
     $type: String
     $date: String
@@ -93,6 +96,7 @@ export const UPDATE_POST = gql`
     $description: String
     $metaTitle: String
     $metaDescription: String
+    $html: String
   ) {
     updatePost(
       input: {
@@ -107,9 +111,21 @@ export const UPDATE_POST = gql`
         description: $description
         metaTitle: $metaTitle
         metaDescription: $metaDescription
+        html: $html
       }
     ) {
       id
+      title
+      category
+      type
+      status
+      image
+      date
+      path
+      description
+      metaTitle
+      metaDescription
+      html
     }
   }
 `;
@@ -128,6 +144,7 @@ export const REMOVE_POST = gql`
       description
       metaTitle
       metaDescription
+      html
     }
   }
 `;

@@ -40,7 +40,6 @@ const RemoveImage = ({ postId }) => {
     //   refetchQueries: () => [{ query: POST_IMAGE, variables: { id: postId } }]
   });
 
-  console.log("data back", data);
   if (error) {
     console.log("error", error);
     return "Error ";

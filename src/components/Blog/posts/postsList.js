@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { BLOG_POSTS } from "../../../queries";
 import PostItem from "./postItem";
+import CreatePostButton from "../UI/createPostButton/createPostButton";
 
 class PostList extends Component {
   state = {};
@@ -32,7 +33,8 @@ class PostList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container mt-5">
+        <CreatePostButton />
         <Query query={BLOG_POSTS}>
           {({ data, loading, error }) => {
             return (
