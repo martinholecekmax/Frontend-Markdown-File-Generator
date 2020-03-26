@@ -6,17 +6,17 @@ import ImageArea from "../imageArea/imageArea";
 import TextField from "../UI/textField/textField";
 import DateField from "../UI/dateField/dateField";
 import HTMLEditor from "../UI/HTMLEditor/HTMLEditor";
-import { POSTS_PAGE, SidebarContext } from "../../../context/sidebarContext";
 import RemoveButton from "../UI/removeButton/removeButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./editPost.module.css";
 import PreviewBox from "../previewBox/previewBox";
+import { withRouter, Prompt } from "react-router";
+import CategorySelect from "../categorySelect/categorySelect";
 
 class AddAndEdit extends Component {
   _isMounted = false;
-  static contextType = SidebarContext;
 
   constructor(props) {
     super(props);
@@ -32,7 +32,8 @@ class AddAndEdit extends Component {
   state = {
     post: {},
     saved: true,
-    html: ""
+    html: "",
+    category: null
   };
 
   componentDidMount() {
@@ -61,12 +62,17 @@ class AddAndEdit extends Component {
     this.setState({ status, saved: false });
   };
 
+  setCategory = category => {
+    this.setState({ category, saved: false });
+  };
+
   editorChange = html => {
     this.setState({ html, saved: false });
   };
 
   handleSubmit = (event, editPost) => {
     event.preventDefault();
+    console.log("this.state.category", this.state.category);
     let variables = {
       title: this.titleRef.current.value,
       file: this.state.file,
@@ -74,7 +80,8 @@ class AddAndEdit extends Component {
       type: "blog-post",
       date: this.dateRef.current.value,
       path: this.pathRef.current.value,
-      category: this.categoryRef.current.value,
+      // category: this.categoryRef.current.value,
+      category: this.state.category,
       description: this.descriptionRef.current.value,
       metaTitle: this.metaTitleRef.current.value,
       metaDescription: this.metaDescriptionRef.current.value,
@@ -102,8 +109,7 @@ class AddAndEdit extends Component {
   };
 
   handleBackButton = () => {
-    const { redirect } = this.context;
-    redirect(POSTS_PAGE);
+    this.props.history.goBack();
   };
 
   handleFieldUpdate = () => {
@@ -127,12 +133,18 @@ class AddAndEdit extends Component {
       html = null,
       image = null
     } = this.state.post;
+    console.log("category", category);
+    console.log("status", status);
 
     return (
       <Mutation mutation={UPDATE_POST}>
         {(postMutation, { loading, error }) => {
           return (
             <div className={styles.container}>
+              <Prompt
+                when={this.state.saved === false}
+                message="Are you sure? You didn't save your work!"
+              />
               <form
                 className={`form ${styles.form}`}
                 onSubmit={event => this.handleSubmit(event, postMutation)}
@@ -165,9 +177,18 @@ class AddAndEdit extends Component {
                   </div>
                   <div className={styles.headerRight}>
                     <StatusList setStatus={this.setStatus} selected={status} />
-                    <button type="submit" className="btn btn-success ml-2">
-                      {this.state.saved ? "Saved" : "Save"}
-                    </button>
+                    {this.state.saved ? (
+                      <button
+                        type="submit"
+                        className="btn btn-outline-secondary ml-2"
+                      >
+                        Save
+                      </button>
+                    ) : (
+                      <button type="submit" className="btn btn-success ml-2">
+                        Save
+                      </button>
+                    )}
                   </div>
                 </div>
                 <div className={styles.content}>
@@ -191,12 +212,17 @@ class AddAndEdit extends Component {
                       dateRef={this.dateRef}
                       handleChange={this.handleFieldUpdate}
                     />
-                    <TextField
+                    {/* <TextField
                       handleChange={this.handleFieldUpdate}
                       fieldRef={this.categoryRef}
                       defaultValue={category}
                       label={"Category"}
+                    /> */}
+                    <CategorySelect
+                      setCategory={this.setCategory}
+                      selected={category ? category.id : null}
                     />
+
                     <ImageArea
                       setUploadImage={this.setUploadImage}
                       image={image}
@@ -243,4 +269,4 @@ class AddAndEdit extends Component {
   }
 }
 
-export default AddAndEdit;
+export default withRouter(AddAndEdit);

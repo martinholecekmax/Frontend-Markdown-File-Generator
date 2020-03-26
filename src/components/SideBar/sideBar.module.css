@@ -7,15 +7,18 @@
 .link {
   color: #b4b6c4;
   padding: 10px 20px;
+  display: block;
+  text-decoration: none !important;
 }
 
 .link:hover {
+  color: #e0e3f4 !important;
   background-color: #1b2848;
   cursor: pointer;
 }
 
 .active {
-  color: #e0e3f4;
+  color: #e0e3f4 !important;
   /* font-weight: 600; */
   background-color: #1b2848;
 }

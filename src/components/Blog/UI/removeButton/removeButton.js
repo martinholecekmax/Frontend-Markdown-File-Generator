@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { BLOG_POSTS, REMOVE_POST } from "../../../../queries";
 import { Mutation } from "react-apollo";
-import { SidebarContext, POSTS_PAGE } from "../../../../context/sidebarContext";
+import { withRouter } from "react-router";
 
 class RemoveButton extends Component {
-  static contextType = SidebarContext;
   onClickDisable = false;
 
   state = {
@@ -21,8 +20,7 @@ class RemoveButton extends Component {
         },
         refetchQueries: () => [{ query: BLOG_POSTS }],
         update: () => {
-          const { redirect } = this.context;
-          redirect(POSTS_PAGE);
+          this.props.history.push(`/blog`);
         }
       }).catch(error => {
         console.error(error);
@@ -53,4 +51,4 @@ class RemoveButton extends Component {
   }
 }
 
-export default RemoveButton;
+export default withRouter(RemoveButton);

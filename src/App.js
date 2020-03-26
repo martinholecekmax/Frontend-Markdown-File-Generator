@@ -9,20 +9,24 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import client from "./ApolloClient";
 
 import Sidebar from "./components/SideBar/sidebar";
-import { SidebarProvider } from "./context/sidebarContext";
-import Content from "./pages/Content";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+import PostList from "./components/Blog/posts/postsList";
+import Wrapper from "./components/Blog/addAndEditPost/Wrapper";
 
 function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ApolloProvider client={client}>
-          <SidebarProvider>
+          <BrowserRouter>
             <div style={{ display: `flex`, minHeight: `100%` }}>
               <Sidebar />
-              <Content />
+              <Switch>
+                <Route path="/blog" exact component={PostList} />
+                <Route path="/blog/:id" component={Wrapper} />
+              </Switch>
             </div>
-          </SidebarProvider>
+          </BrowserRouter>
         </ApolloProvider>
       </PersistGate>
     </Provider>

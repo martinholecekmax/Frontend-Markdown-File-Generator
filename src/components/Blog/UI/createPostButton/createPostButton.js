@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import { ADD_NEW_POST, BLOG_POSTS } from "../../../../queries";
-import { SidebarContext } from "../../../../context/sidebarContext";
-import { EDIT_POST_PAGE } from "../../../../context/sidebarContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { withRouter } from "react-router";
 
 class CreatePostButton extends Component {
   state = {};
-  static contextType = SidebarContext;
 
   handleClick = (event, addPost) => {
     event.preventDefault();
@@ -20,8 +18,7 @@ class CreatePostButton extends Component {
       })
       .then(res => {
         // this.props.history.push(`/editPost/${res.data.createPost.id}`);
-        const { redirect } = this.context;
-        redirect(EDIT_POST_PAGE, res.data.createPost.id);
+        this.props.history.push(`/blog/${res.data.createPost.id}`);
       });
   };
 
@@ -51,4 +48,4 @@ class CreatePostButton extends Component {
   }
 }
 
-export default CreatePostButton;
+export default withRouter(CreatePostButton);

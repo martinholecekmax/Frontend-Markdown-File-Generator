@@ -5,7 +5,12 @@ export const BLOG_POSTS = gql`
     allPosts {
       id
       title
-      category
+      category {
+        id
+        slug
+        name
+        type
+      }
       type
       status
       image
@@ -19,12 +24,33 @@ export const BLOG_POSTS = gql`
   }
 `;
 
+export const ALL_BLOG_CATEGORIES = gql`
+  query Posts {
+    allBlogCategories {
+      id
+      type
+      name
+      slug
+      posts {
+        id
+        type
+        title
+      }
+    }
+  }
+`;
+
 export const POST_BY_ID = gql`
   query Post($id: ID!) {
     post(id: $id) {
       id
       title
-      category
+      category {
+        id
+        slug
+        name
+        type
+      }
       type
       status
       image
@@ -69,7 +95,12 @@ export const ADD_NEW_POST = gql`
     ) {
       id
       title
-      category
+      category {
+        id
+        slug
+        name
+        type
+      }
       type
       status
       image
@@ -116,7 +147,12 @@ export const UPDATE_POST = gql`
     ) {
       id
       title
-      category
+      category {
+        id
+        slug
+        name
+        type
+      }
       type
       status
       image
@@ -134,17 +170,6 @@ export const REMOVE_POST = gql`
   mutation RemovePost($id: ID!) {
     removePost(id: $id) {
       id
-      title
-      category
-      type
-      status
-      image
-      date
-      path
-      description
-      metaTitle
-      metaDescription
-      html
     }
   }
 `;
@@ -154,7 +179,12 @@ export const REMOVE_IMAGE = gql`
     removeImage(id: $id) {
       id
       title
-      category
+      category {
+        id
+        slug
+        name
+        type
+      }
       type
       status
       image

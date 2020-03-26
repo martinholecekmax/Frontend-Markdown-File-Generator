@@ -12,11 +12,12 @@ class Wrapper extends Component {
   }
 
   render() {
-    if (!this.state.postID) {
+    if (!this.props.match.params.id) {
       return null;
     }
+    const id = this.props.match.params.id;
     return (
-      <Query query={POST_BY_ID} variables={{ id: this.state.postID }}>
+      <Query query={POST_BY_ID} variables={{ id }}>
         {({ data, loading, error }) => {
           if (loading) {
             return <p>Loading...</p>;
