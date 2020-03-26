@@ -1,15 +1,22 @@
 import React, { Component } from "react";
-import { UPDATE_POST, BLOG_POSTS } from "../../../queries";
+import { UPDATE_POST } from "../../../queries";
 import { Mutation } from "react-apollo";
 import StatusList from "../status/statusList";
 import ImageArea from "../imageArea/imageArea";
 import TextField from "../UI/textField/textField";
 import DateField from "../UI/dateField/dateField";
-import { withRouter } from "react-router-dom";
 import HTMLEditor from "../UI/HTMLEditor/HTMLEditor";
+import { POSTS_PAGE, SidebarContext } from "../../../context/sidebarContext";
+import RemoveButton from "../UI/removeButton/removeButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
+import styles from "./editPost.module.css";
+import PreviewBox from "../previewBox/previewBox";
 
 class AddAndEdit extends Component {
   _isMounted = false;
+  static contextType = SidebarContext;
 
   constructor(props) {
     super(props);
@@ -24,6 +31,7 @@ class AddAndEdit extends Component {
 
   state = {
     post: {},
+    saved: true,
     html: ""
   };
 
@@ -31,13 +39,13 @@ class AddAndEdit extends Component {
     this._isMounted = true;
 
     if (this.props.post) {
-      this.setState({ post: this.props.post });
+      this.setState({ post: this.props.post, html: this.props.post.html });
     }
   }
 
   componentDidUpdate(prevProp) {
     if (prevProp.post !== this.props.post) {
-      this.setState({ post: this.props.post });
+      this.setState({ post: this.props.post, html: this.props.post.html });
     }
   }
 
@@ -46,15 +54,15 @@ class AddAndEdit extends Component {
   }
 
   setUploadImage = file => {
-    this.setState({ file });
+    this.setState({ file, saved: false });
   };
 
   setStatus = status => {
-    this.setState({ status });
+    this.setState({ status, saved: false });
   };
 
   editorChange = html => {
-    this.setState({ html });
+    this.setState({ html, saved: false });
   };
 
   handleSubmit = (event, editPost) => {
@@ -78,20 +86,28 @@ class AddAndEdit extends Component {
     editPost({
       variables,
       update: (_, { data }) => {
-        console.log("data", data);
         let post = this.state.post;
         if (data.updatePost) {
           post = data.updatePost;
         }
 
         if (this._isMounted) {
-          this.setState({ post });
+          this.setState({ post, saved: true });
         }
-      },
-      refetchQueries: () => [{ query: BLOG_POSTS }]
+      }
+      // refetchQueries: () => [{ query: BLOG_POSTS }]
     }).catch(error => {
       console.log("Mutation Error", error.message);
     });
+  };
+
+  handleBackButton = () => {
+    const { redirect } = this.context;
+    redirect(POSTS_PAGE);
+  };
+
+  handleFieldUpdate = () => {
+    this.setState({ saved: false });
   };
 
   render() {
@@ -108,81 +124,118 @@ class AddAndEdit extends Component {
       description = null,
       metaTitle = null,
       metaDescription = null,
-      html = null
+      html = null,
+      image = null
     } = this.state.post;
 
     return (
       <Mutation mutation={UPDATE_POST}>
         {(postMutation, { loading, error }) => {
           return (
-            <form
-              className="form"
-              onSubmit={event => this.handleSubmit(event, postMutation)}
-              encType={"multipart/form-data"}
-            >
-              <button
-                className="btn btn-primary mb-3"
-                onClick={() => this.props.history.goBack()}
+            <div className={styles.container}>
+              <form
+                className={`form ${styles.form}`}
+                onSubmit={event => this.handleSubmit(event, postMutation)}
+                encType={"multipart/form-data"}
               >
-                Back
-              </button>
-              <div style={{ display: `flex`, justifyContent: `space-between` }}>
-                <div>
-                  {this.state.post.title ? (
-                    <h1>{this.state.post.title}</h1>
-                  ) : (
-                    <h1>Untitled</h1>
-                  )}
-                  <div>ID: {id}</div>
+                <div className={styles.header}>
+                  <div className={styles.headerLeft}>
+                    <div
+                      className={styles.backButton}
+                      onClick={this.handleBackButton}
+                    >
+                      <FontAwesomeIcon icon={faChevronLeft} />
+                    </div>
+                    <div className={styles.title}>
+                      {this.state.post.title
+                        ? this.state.post.title
+                        : "Untitled"}
+                      <div className={styles.statusDot}>
+                        {status === "DRAFT" ? (
+                          <span className={styles.draft} />
+                        ) : null}
+                        {status === "PUBLISHED" ? (
+                          <span className={styles.published} />
+                        ) : null}
+                      </div>
+                    </div>
+                    <RemoveButton className={styles.removeButton} postId={id}>
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </RemoveButton>
+                  </div>
+                  <div className={styles.headerRight}>
+                    <StatusList setStatus={this.setStatus} selected={status} />
+                    <button type="submit" className="btn btn-success ml-2">
+                      {this.state.saved ? "Saved" : "Save"}
+                    </button>
+                  </div>
                 </div>
-                <div style={{ display: `flex`, alignItems: `center` }}>
-                  <StatusList setStatus={this.setStatus} selected={status} />
-                  <button type="submit" className="btn btn-success ml-5">
-                    Save
-                  </button>
-                </div>
-              </div>
-              <TextField
-                fieldRef={this.titleRef}
-                defaultValue={title}
-                label={"Title"}
-              />
-              <TextField
-                fieldRef={this.pathRef}
-                defaultValue={path}
-                uri={true}
-                label={"Path"}
-              />
-              <DateField defaultValue={date} dateRef={this.dateRef} />
-              <TextField
-                fieldRef={this.categoryRef}
-                defaultValue={category}
-                label={"Category"}
-              />
-              <ImageArea setUploadImage={this.setUploadImage} />
-              <TextField
-                fieldRef={this.descriptionRef}
-                defaultValue={description}
-                label={"Description"}
-              />
-              <TextField
-                fieldRef={this.metaTitleRef}
-                defaultValue={metaTitle}
-                label={"Meta Title"}
-              />
-              <TextField
-                fieldRef={this.metaDescriptionRef}
-                defaultValue={metaDescription}
-                label={"Meta Description"}
-              />
-              <HTMLEditor
-                handleChange={this.editorChange}
-                defaultValue={html}
-              />
+                <div className={styles.content}>
+                  <div className={styles.leftSide}>
+                    {/* <div>ID: {id}</div> */}
+                    <TextField
+                      handleChange={this.handleFieldUpdate}
+                      fieldRef={this.titleRef}
+                      defaultValue={title}
+                      label={"Title"}
+                    />
+                    <TextField
+                      handleChange={this.handleFieldUpdate}
+                      fieldRef={this.pathRef}
+                      defaultValue={path}
+                      uri={true}
+                      label={"Path"}
+                    />
+                    <DateField
+                      defaultValue={date}
+                      dateRef={this.dateRef}
+                      handleChange={this.handleFieldUpdate}
+                    />
+                    <TextField
+                      handleChange={this.handleFieldUpdate}
+                      fieldRef={this.categoryRef}
+                      defaultValue={category}
+                      label={"Category"}
+                    />
+                    <ImageArea
+                      setUploadImage={this.setUploadImage}
+                      image={image}
+                      postId={id}
+                    />
+                    <TextField
+                      handleChange={this.handleFieldUpdate}
+                      fieldRef={this.descriptionRef}
+                      defaultValue={description}
+                      label={"Description"}
+                    />
+                    <TextField
+                      handleChange={this.handleFieldUpdate}
+                      fieldRef={this.metaTitleRef}
+                      defaultValue={metaTitle}
+                      label={"Meta Title"}
+                    />
+                    <TextField
+                      handleChange={this.handleFieldUpdate}
+                      fieldRef={this.metaDescriptionRef}
+                      defaultValue={metaDescription}
+                      label={"Meta Description"}
+                    />
+                    <HTMLEditor
+                      handleChange={this.editorChange}
+                      defaultValue={html}
+                    />
 
-              {error ? <p>Please, try again!</p> : null}
-              {loading && <p>Loading.....</p>}
-            </form>
+                    {error ? <p>Please, try again!</p> : null}
+                    {loading && <p>Loading.....</p>}
+                  </div>
+
+                  <PreviewBox
+                    html={this.state.html}
+                    className={styles.rightSide}
+                  />
+                </div>
+              </form>
+            </div>
           );
         }}
       </Mutation>
@@ -190,4 +243,4 @@ class AddAndEdit extends Component {
   }
 }
 
-export default withRouter(AddAndEdit);
+export default AddAndEdit;

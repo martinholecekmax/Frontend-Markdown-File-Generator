@@ -28,7 +28,6 @@ class Editor extends Component {
     });
     content = content.sort((itemA, itemB) => itemA.id - itemB.id);
     this.setState({ content });
-    console.log("content add Field", JSON.stringify(content, null, 2));
   };
 
   removeField = field => {
@@ -36,7 +35,6 @@ class Editor extends Component {
       return item.field !== field.field;
     });
     this.setState({ content });
-    console.log("content remove", JSON.stringify(content, null, 2));
   };
 
   updateField = field => {
@@ -49,7 +47,6 @@ class Editor extends Component {
       return item;
     });
     this.setState({ content });
-    console.log("content", JSON.stringify(content, null, 2));
   };
 
   render() {

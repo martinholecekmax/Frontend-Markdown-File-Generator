@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import { ADD_NEW_POST, BLOG_POSTS } from "../../../../queries";
-import { withRouter } from "react-router-dom";
+import { SidebarContext } from "../../../../context/sidebarContext";
+import { EDIT_POST_PAGE } from "../../../../context/sidebarContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 class CreatePostButton extends Component {
   state = {};
+  static contextType = SidebarContext;
 
   handleClick = (event, addPost) => {
     event.preventDefault();
@@ -15,33 +19,36 @@ class CreatePostButton extends Component {
         console.log("Mutation Error", error.message);
       })
       .then(res => {
-        this.props.history.push(`/editPost/${res.data.createPost.id}`);
+        // this.props.history.push(`/editPost/${res.data.createPost.id}`);
+        const { redirect } = this.context;
+        redirect(EDIT_POST_PAGE, res.data.createPost.id);
       });
   };
 
   render() {
     return (
-      <div>
-        <Mutation mutation={ADD_NEW_POST}>
-          {(addPost, { loading, error, data }) => {
-            console.log(data);
-            return (
-              <div>
-                <button
-                  className="btn btn-primary mb-5"
-                  onClick={event => this.handleClick(event, addPost)}
-                >
-                  Create New Post
-                </button>
-                {loading ? <p>Loading...</p> : null}
-                {error ? <p>Error...</p> : null}
-              </div>
-            );
-          }}
-        </Mutation>
-      </div>
+      <Mutation mutation={ADD_NEW_POST}>
+        {(addPost, { loading, error, data }) => {
+          return (
+            <div className={this.props.className || ""}>
+              <button
+                className="btn btn-primary"
+                onClick={event => this.handleClick(event, addPost)}
+              >
+                {loading ? (
+                  <FontAwesomeIcon icon={faSpinner} />
+                ) : (
+                  <FontAwesomeIcon icon={faPlus} />
+                )}
+                <span className="ml-2">Create New Post</span>
+                {error && <span>Error...</span>}
+              </button>
+            </div>
+          );
+        }}
+      </Mutation>
     );
   }
 }
 
-export default withRouter(CreatePostButton);
+export default CreatePostButton;

@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 import RemoveButton from "../UI/removeButton/removeButton";
-import { withRouter } from "react-router-dom";
+import {
+  SidebarContext,
+  EDIT_POST_PAGE
+} from "../../../context/sidebarContext";
+
+import styles from "./postItem.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 class PostItem extends Component {
   state = {};
+  static contextType = SidebarContext;
 
-  handleEdit = (event, id) => {
-    this.props.history.push(`/editPost/${id}`);
+  handleEdit = (_, id) => {
+    const { redirect } = this.context;
+    redirect(EDIT_POST_PAGE, id);
   };
 
   render() {
@@ -18,17 +27,33 @@ class PostItem extends Component {
           <td>{post.title}</td>
           <td>{post.category}</td>
           <td>{post.date}</td>
-          <td>{post.status}</td>
           <td>
-            <button
-              className="btn btn-success mr-2"
-              onClick={event => this.handleEdit(event, post.id)}
-            >
-              Edit
-            </button>
-            <RemoveButton postId={post.id} />
+            {post.status === "PUBLISHED" ? (
+              <span className={styles.published}>{post.status}</span>
+            ) : null}
+            {post.status === "DRAFT" ? (
+              <span className={styles.draft}>{post.status}</span>
+            ) : null}
           </td>
-          {post.image ? (
+          <td>
+            <div className={styles.acitionWrapper}>
+              <div
+                // className="btn btn-success mr-2"
+                className={styles.actionIcon}
+                onClick={event => this.handleEdit(event, post.id)}
+              >
+                <FontAwesomeIcon icon={faEdit} />
+              </div>
+              <RemoveButton
+                postId={post.id}
+                className={styles.actionIcon}
+                // className="btn btn-danger"
+              >
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </RemoveButton>
+            </div>
+          </td>
+          {/* {post.image ? (
             <td>
               <img
                 width="100px"
@@ -37,7 +62,7 @@ class PostItem extends Component {
                 alt={`${post.image}`}
               />
             </td>
-          ) : null}
+          ) : null} */}
         </tr>
       );
     }
@@ -45,4 +70,4 @@ class PostItem extends Component {
   }
 }
 
-export default withRouter(PostItem);
+export default PostItem;

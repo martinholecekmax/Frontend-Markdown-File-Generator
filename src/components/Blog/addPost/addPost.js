@@ -50,10 +50,6 @@ class AddPost extends Component {
     });
   };
 
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   render() {
     return (
       <div className="container mt-5 p-5">

@@ -1,0 +1,17 @@
+.published {
+  color: #0eb87f;
+}
+
+.draft {
+  color: #ea9005;
+}
+
+.actionIcon {
+  font-size: 20px;
+  margin-right: 13px;
+  cursor: pointer;
+}
+
+.acitionWrapper {
+  display: flex;
+}

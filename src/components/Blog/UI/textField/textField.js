@@ -24,11 +24,11 @@ class TextField extends Component {
 
   handleChange = e => {
     let value = e.target.value;
-    console.log("this.props.uri", this.props.uri);
     if (this.props.uri) {
       value = this.validateURI(value);
     }
     this.props.fieldRef.current.value = value;
+    this.props.handleChange();
   };
 
   render() {

@@ -20,15 +20,12 @@ const REMOVE_IMAGE = gql`
 `;
 
 const RemoveImage = ({ postId }) => {
-  console.log("postId", postId);
-  console.log("POST_IMAGE", POST_IMAGE);
   const [removeImageMutation, { data, error }] = useMutation(REMOVE_IMAGE, {
     update(cache, { data: { removeImage } }) {
       const { post } = cache.readQuery({
         query: POST_IMAGE,
         variables: { id: postId }
       });
-      console.log("post", post);
       if (removeImage) {
         post.image = "";
       }
@@ -41,7 +38,6 @@ const RemoveImage = ({ postId }) => {
   });
 
   if (error) {
-    console.log("error", error);
     return "Error ";
   }
   return (
@@ -66,7 +62,6 @@ const BlogImage = ({ postId }) => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  console.log("image data", data);
 
   const image =
     data.post && data.post.image ? (

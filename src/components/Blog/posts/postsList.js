@@ -4,6 +4,8 @@ import { BLOG_POSTS } from "../../../queries";
 import PostItem from "./postItem";
 import CreatePostButton from "../UI/createPostButton/createPostButton";
 
+import styles from "./postList.module.css";
+
 class PostList extends Component {
   state = {};
 
@@ -13,7 +15,7 @@ class PostList extends Component {
         <PostItem post={post} key={index} />
       ));
       return (
-        <table style={{ width: `100%` }}>
+        <table className={styles.table}>
           <thead>
             <tr>
               <th>ID</th>
@@ -33,12 +35,16 @@ class PostList extends Component {
 
   render() {
     return (
-      <div className="container mt-5">
-        <CreatePostButton />
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <div className={styles.title}>Blog Posts</div>
+          <CreatePostButton className={styles.createButton} />
+        </div>
+
         <Query query={BLOG_POSTS}>
           {({ data, loading, error }) => {
             return (
-              <div>
+              <div className={styles.content}>
                 {this.printPosts(data)}
                 {error ? <p>Error</p> : null}
                 {loading ? <p>Loading...</p> : null}

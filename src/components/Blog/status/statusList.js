@@ -40,6 +40,7 @@ class StatusList extends Component {
               ));
               return (
                 <select
+                  className="custom-select"
                   onChange={this.handleStatusChange}
                   value={this.state.selected || menuItems[0].name}
                 >

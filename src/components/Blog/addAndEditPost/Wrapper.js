@@ -6,8 +6,8 @@ import AddAndEdit from "./AddAndEditPost";
 class Wrapper extends Component {
   state = { postID: null };
   componentDidMount() {
-    if (this.props.match.params.id) {
-      this.setState({ postID: this.props.match.params.id });
+    if (this.props.id) {
+      this.setState({ postID: this.props.id });
     }
   }
 
@@ -16,19 +16,20 @@ class Wrapper extends Component {
       return null;
     }
     return (
-      <div className="container mt-5 p-5">
-        <Query query={POST_BY_ID} variables={{ id: this.state.postID }}>
-          {({ data, loading, error }) => {
-            if (loading || error) {
-              return null;
-            }
-            if (data.post) {
-              return <AddAndEdit post={data.post} />;
-            }
-            return null;
-          }}
-        </Query>
-      </div>
+      <Query query={POST_BY_ID} variables={{ id: this.state.postID }}>
+        {({ data, loading, error }) => {
+          if (loading) {
+            return <p>Loading...</p>;
+          }
+          if (error) {
+            return <p>Error</p>;
+          }
+          if (data.post) {
+            return <AddAndEdit post={data.post} />;
+          }
+          return null;
+        }}
+      </Query>
     );
   }
 }

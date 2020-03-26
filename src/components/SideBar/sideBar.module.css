@@ -1,0 +1,26 @@
+.content {
+  background-color: #222f4d;
+  color: #dadfea;
+  min-width: 200px;
+}
+
+.link {
+  color: #b4b6c4;
+  padding: 10px 20px;
+}
+
+.link:hover {
+  background-color: #1b2848;
+  cursor: pointer;
+}
+
+.active {
+  color: #e0e3f4;
+  /* font-weight: 600; */
+  background-color: #1b2848;
+}
+
+.title {
+  font-size: 22px;
+  padding: 20px;
+}

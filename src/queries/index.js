@@ -149,6 +149,25 @@ export const REMOVE_POST = gql`
   }
 `;
 
+export const REMOVE_IMAGE = gql`
+  mutation RemoveImage($id: ID!) {
+    removeImage(id: $id) {
+      id
+      title
+      category
+      type
+      status
+      image
+      date
+      path
+      description
+      metaTitle
+      metaDescription
+      html
+    }
+  }
+`;
+
 export const STATUS = gql`
   {
     __type(name: "Status") {

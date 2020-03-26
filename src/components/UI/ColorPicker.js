@@ -17,7 +17,6 @@ class ColorPicker extends Component {
   };
 
   onChangeComplete = color => {
-    console.log("color", color);
     this.setState({ color: color.hex, value: color.hex });
     let e = {
       target: {
@@ -29,9 +28,6 @@ class ColorPicker extends Component {
   };
 
   handleChange = color => {
-    console.log("e", typeof color);
-    console.log("et", typeof color.target);
-    console.log("ev", typeof color.target.value);
     let e = {
       target: {
         value: color.target.value,

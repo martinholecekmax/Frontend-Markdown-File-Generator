@@ -2,6 +2,11 @@ import React, { Component } from "react";
 
 class DateField extends Component {
   state = {};
+
+  handleChange = () => {
+    this.props.handleChange();
+  };
+
   render() {
     let defaultValue = this.props.defaultValue || "";
     return (
@@ -13,6 +18,7 @@ class DateField extends Component {
           className="form-control"
           id="date"
           ref={this.props.dateRef}
+          onChange={this.handleChange}
           defaultValue={defaultValue}
         />
       </div>
