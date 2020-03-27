@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { POST_BY_ID } from "../../../queries";
 import EditPost from "./editPost";
+import withSidebar from "../UI/sideBar/sidebar";
 
 class EditPostWrapper extends Component {
   render() {
@@ -28,4 +29,4 @@ class EditPostWrapper extends Component {
   }
 }
 
-export default EditPostWrapper;
+export default withSidebar(EditPostWrapper);

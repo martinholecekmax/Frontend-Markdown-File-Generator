@@ -6,6 +6,7 @@ import Header from "../UI/header/header";
 import CategoryItem from "./categoryItem";
 
 import CreateCategoryButton from "../UI/createCategoryButton/createCategoryButton";
+import withSidebar from "../UI/sideBar/sidebar";
 
 class CategoryList extends Component {
   state = {};
@@ -56,4 +57,4 @@ class CategoryList extends Component {
   }
 }
 
-export default CategoryList;
+export default withSidebar(CategoryList);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { CATEGORY_BY_ID } from "../../../queries";
 import EditCategory from "./editCategory";
+import withSidebar from "../UI/sideBar/sidebar";
 
 class EditCategoryWrapper extends Component {
   render() {
@@ -29,4 +30,4 @@ class EditCategoryWrapper extends Component {
   }
 }
 
-export default EditCategoryWrapper;
+export default withSidebar(EditCategoryWrapper);

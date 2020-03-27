@@ -6,6 +6,7 @@ import CreatePostButton from "../UI/createPostButton/createPostButton";
 
 import styles from "./postList.module.css";
 import Header from "../UI/header/header";
+import withSidebar from "../UI/sideBar/sidebar";
 
 class PostList extends Component {
   state = {};
@@ -60,4 +61,4 @@ class PostList extends Component {
   }
 }
 
-export default PostList;
+export default withSidebar(PostList);

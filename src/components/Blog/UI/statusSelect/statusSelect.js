@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { STATUS } from "../../../queries";
+import { STATUS } from "../../../../queries";
 import { Query } from "react-apollo";
 
-class StatusList extends Component {
+class StatusSelect extends Component {
   state = { selected: null };
 
   handleStatusChange = event => {
@@ -56,4 +56,4 @@ class StatusList extends Component {
   }
 }
 
-export default StatusList;
+export default StatusSelect;

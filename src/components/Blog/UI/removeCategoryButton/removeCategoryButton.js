@@ -27,7 +27,7 @@ class RemoveCategoryButton extends Component {
           { query: BLOG_POSTS }
         ],
         update: () => {
-          this.props.history.push(`/category`);
+          this.props.history.push(`/blog/category`);
         }
       }).catch(error => {
         console.error(error);

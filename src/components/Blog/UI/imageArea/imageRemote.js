@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "./imageArea.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { REMOVE_IMAGE } from "../../../queries";
+import { REMOVE_IMAGE } from "../../../../queries";
 import { Mutation } from "react-apollo";
 
 class ImageRemote extends Component {

@@ -17,7 +17,9 @@ class CreateCategoryButton extends Component {
         console.log("Mutation Error", error.message);
       })
       .then(res => {
-        this.props.history.push(`/category/${res.data.createBlogCategory.id}`);
+        this.props.history.push(
+          `/blog/category/${res.data.createBlogCategory.id}`
+        );
       });
   };
 

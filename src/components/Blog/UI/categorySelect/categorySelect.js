@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ALL_BLOG_CATEGORIES } from "../../../queries";
+import { ALL_BLOG_CATEGORIES } from "../../../../queries";
 import { Query } from "react-apollo";
 
 class CategorySelect extends Component {

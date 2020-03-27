@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { UPDATE_POST } from "../../../queries";
 import { Mutation } from "react-apollo";
-import StatusList from "../status/statusList";
-import ImageArea from "../imageArea/imageArea";
+import StatusSelect from "../UI/statusSelect/statusSelect";
+import ImageArea from "../UI/imageArea/imageArea";
 import TextField from "../UI/textField/textField";
 import DateField from "../UI/dateField/dateField";
 import HTMLEditor from "../UI/HTMLEditor/HTMLEditor";
@@ -11,9 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./editPost.module.css";
-import PreviewBox from "../previewBox/previewBox";
+import PreviewBox from "../UI/previewBox/previewBox";
 import { withRouter, Prompt } from "react-router";
-import CategorySelect from "../categorySelect/categorySelect";
+import CategorySelect from "../UI/categorySelect/categorySelect";
 
 class EditPost extends Component {
   _isMounted = false;
@@ -176,7 +176,10 @@ class EditPost extends Component {
                     </RemoveButton>
                   </div>
                   <div className={styles.headerRight}>
-                    <StatusList setStatus={this.setStatus} selected={status} />
+                    <StatusSelect
+                      setStatus={this.setStatus}
+                      selected={status}
+                    />
                     {this.state.saved ? (
                       <button
                         type="submit"

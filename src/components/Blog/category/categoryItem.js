@@ -11,7 +11,7 @@ class CategoryItem extends Component {
   state = {};
 
   handleEdit = (_, id) => {
-    this.props.history.push(`/category/${id}`);
+    this.props.history.push(`/blog/category/${id}`);
   };
 
   render() {

@@ -8,7 +8,6 @@ import { store, persistor } from "./store";
 import { ApolloProvider } from "@apollo/react-hooks";
 import client from "./ApolloClient";
 
-import Sidebar from "./components/SideBar/sidebar";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import PostList from "./components/Blog/posts/postsList";
 import EditPostWrapper from "./components/Blog/editPost/editPostWrapper";
@@ -21,15 +20,15 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <ApolloProvider client={client}>
           <BrowserRouter>
-            <div style={{ display: `flex`, minHeight: `100%` }}>
-              <Sidebar />
-              <Switch>
-                <Route path="/blog" exact component={PostList} />
-                <Route path="/blog/:id" component={EditPostWrapper} />
-                <Route path="/category" exact component={CategoryList} />
-                <Route path="/category/:id" component={EditCategoryWrapper} />
-              </Switch>
-            </div>
+            <Switch>
+              <Route path="/blog" exact component={PostList} />
+              <Route path="/blog/category" exact component={CategoryList} />
+              <Route
+                path="/blog/category/:id"
+                component={EditCategoryWrapper}
+              />
+              <Route path="/blog/:id" exact component={EditPostWrapper} />
+            </Switch>
           </BrowserRouter>
         </ApolloProvider>
       </PersistGate>

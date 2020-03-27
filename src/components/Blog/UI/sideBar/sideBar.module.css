@@ -1,3 +1,8 @@
+.container {
+  display: flex;
+  min-height: 100%;
+}
+
 .content {
   background-color: #222f4d;
   color: #dadfea;
