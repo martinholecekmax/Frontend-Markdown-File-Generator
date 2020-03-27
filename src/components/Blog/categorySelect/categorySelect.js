@@ -37,7 +37,7 @@ class CategorySelect extends Component {
             if (menuItems) {
               const options = menuItems.map((category, index) => (
                 <option key={index} value={category.id}>
-                  {category.name}
+                  {category.name ? category.name : "Untitled"}
                 </option>
               ));
               return (

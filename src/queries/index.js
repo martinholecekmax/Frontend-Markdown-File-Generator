@@ -1,5 +1,7 @@
 import { gql } from "apollo-boost";
 
+// POSTS
+
 export const BLOG_POSTS = gql`
   query Posts {
     allPosts {
@@ -20,22 +22,6 @@ export const BLOG_POSTS = gql`
       metaTitle
       metaDescription
       html
-    }
-  }
-`;
-
-export const ALL_BLOG_CATEGORIES = gql`
-  query Posts {
-    allBlogCategories {
-      id
-      type
-      name
-      slug
-      posts {
-        id
-        type
-        title
-      }
     }
   }
 `;
@@ -205,6 +191,70 @@ export const STATUS = gql`
       enumValues {
         name
       }
+    }
+  }
+`;
+
+// CATEGORIES
+
+export const ALL_BLOG_CATEGORIES = gql`
+  query Posts {
+    allBlogCategories {
+      id
+      type
+      name
+      slug
+      posts {
+        id
+      }
+    }
+  }
+`;
+
+export const CATEGORY_BY_ID = gql`
+  query Category($id: ID!) {
+    blogCategory(id: $id) {
+      id
+      slug
+      name
+      type
+    }
+  }
+`;
+
+export const ADD_NEW_CATEGORY = gql`
+  mutation AddNewCategory($type: String, $slug: String, $name: String) {
+    createBlogCategory(input: { type: $type, slug: $slug, name: $name }) {
+      id
+      slug
+      name
+      type
+    }
+  }
+`;
+
+export const UPDATE_BLOG_CATEGORY = gql`
+  mutation UpdateBlogCategory(
+    $id: ID!
+    $name: String
+    $type: String
+    $slug: String
+  ) {
+    updateBlogCategory(
+      input: { id: $id, name: $name, type: $type, slug: $slug }
+    ) {
+      id
+      slug
+      name
+      type
+    }
+  }
+`;
+
+export const REMOVE_BLOG_CATEGORY = gql`
+  mutation RemoveBlogCategory($id: ID!) {
+    removeBlogCategory(id: $id) {
+      id
     }
   }
 `;

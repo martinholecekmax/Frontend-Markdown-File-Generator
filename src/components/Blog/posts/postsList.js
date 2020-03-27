@@ -5,6 +5,7 @@ import PostItem from "./postItem";
 import CreatePostButton from "../UI/createPostButton/createPostButton";
 
 import styles from "./postList.module.css";
+import Header from "../UI/header/header";
 
 class PostList extends Component {
   state = {};
@@ -36,10 +37,12 @@ class PostList extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
+        <Header>
+          {/* <div className={styles.header}> */}
           <div className={styles.title}>Blog Posts</div>
           <CreatePostButton className={styles.createButton} />
-        </div>
+          {/* </div> */}
+        </Header>
 
         <Query query={BLOG_POSTS}>
           {({ data, loading, error }) => {

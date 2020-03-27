@@ -1,23 +1,16 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import { POST_BY_ID } from "../../../queries";
-import AddAndEdit from "./AddAndEditPost";
+import { CATEGORY_BY_ID } from "../../../queries";
+import EditCategory from "./editCategory";
 
-class Wrapper extends Component {
-  state = { postID: null };
-  componentDidMount() {
-    if (this.props.id) {
-      this.setState({ postID: this.props.id });
-    }
-  }
-
+class EditCategoryWrapper extends Component {
   render() {
     if (!this.props.match.params.id) {
       return null;
     }
     const id = this.props.match.params.id;
     return (
-      <Query query={POST_BY_ID} variables={{ id }}>
+      <Query query={CATEGORY_BY_ID} variables={{ id }}>
         {({ data, loading, error }) => {
           if (loading) {
             return <p>Loading...</p>;
@@ -25,8 +18,9 @@ class Wrapper extends Component {
           if (error) {
             return <p>Error</p>;
           }
-          if (data.post) {
-            return <AddAndEdit post={data.post} />;
+          console.log("data", data);
+          if (data.blogCategory) {
+            return <EditCategory category={data.blogCategory} />;
           }
           return null;
         }}
@@ -35,4 +29,4 @@ class Wrapper extends Component {
   }
 }
 
-export default Wrapper;
+export default EditCategoryWrapper;

@@ -20,7 +20,13 @@ class PostItem extends Component {
         <tr>
           <td>{post.id}</td>
           <td>{post.title}</td>
-          <td>{post.category ? post.category.name : ""}</td>
+          <td>
+            {post.category
+              ? post.category.name
+                ? post.category.name
+                : "Untitled"
+              : ""}
+          </td>
           <td>{post.date}</td>
           <td>
             {post.status === "PUBLISHED" ? (

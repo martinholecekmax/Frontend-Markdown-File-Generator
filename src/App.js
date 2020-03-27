@@ -11,7 +11,9 @@ import client from "./ApolloClient";
 import Sidebar from "./components/SideBar/sidebar";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import PostList from "./components/Blog/posts/postsList";
-import Wrapper from "./components/Blog/addAndEditPost/Wrapper";
+import EditPostWrapper from "./components/Blog/editPost/editPostWrapper";
+import CategoryList from "./components/Blog/category/categoryList";
+import EditCategoryWrapper from "./components/Blog/editCategory/editCategoryWrapper";
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
               <Sidebar />
               <Switch>
                 <Route path="/blog" exact component={PostList} />
-                <Route path="/blog/:id" component={Wrapper} />
+                <Route path="/blog/:id" component={EditPostWrapper} />
+                <Route path="/category" exact component={CategoryList} />
+                <Route path="/category/:id" component={EditCategoryWrapper} />
               </Switch>
             </div>
           </BrowserRouter>
